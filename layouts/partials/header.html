@@ -19,15 +19,19 @@
 	{{ if .IsPage }}
 	  {{ with .Params.og_image }}
 		<meta property="og:image" content="{{ . | absURL }}">
+		<meta name="twitter:image" content="{{ . | absURL }}" />
 	  {{ else }}
 		{{ with .Resources.GetMatch "og-image.png" }}
 		  <meta property="og:image" content="{{ .RelPermalink | absURL }}">
+		  <meta name="twitter:image" content="{{ .RelPermalink | absURL }}" />
 		{{ else }}
 		  <meta property="og:image" content="{{ $default | absURL }}">
+		  <meta name="twitter:image" content="{{ $default | absURL }}" />
 		{{ end }}
 	  {{ end }}
 	{{ else }}
 	  <meta property="og:image" content="{{ $default | absURL }}">
+	  <meta name="twitter:image" content="{{ $default | absURL }}">
 	{{ end }}
 
 	{{ with .OutputFormats.Get "rss" -}}
