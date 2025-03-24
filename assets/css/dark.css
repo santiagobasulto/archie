@@ -10,7 +10,7 @@ body {
 }
 
 ::selection {
-  background: red;
+  background: #663399;
   color: #fff;
   text-shadow: none;
 }
@@ -138,7 +138,7 @@ a:hover {
 .highlight pre code[class*='language-json']::before{
   content: 'json';
   background: dodgerblue;
-   color: #000000 
+   color: #000000
 }
 .highlight pre code[class*='language-python']::before,
 .highlight pre code[class*='language-py']::before {
