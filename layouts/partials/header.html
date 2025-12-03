@@ -33,18 +33,24 @@
 
 	{{ $default := .Site.Params.og_image }}
 	{{ if .IsPage }}
-	  {{ with .Params.og_image }}
-		<meta property="og:image" content="{{ . | absURL }}">
-		<meta name="twitter:image" content="{{ . | absURL }}" />
-	  {{ else }}
-		{{ with .Resources.GetMatch "og_image.png" }}
-		  <meta property="og:image" content="{{ .RelPermalink | absURL }}">
-		  <meta name="twitter:image" content="{{ .RelPermalink | absURL }}" />
+	{{ with .Params.og_image }}
+		{{ $img := . }}
+		{{ with $.Resources.GetMatch $img }}
+		<meta property="og:image" content="{{ .RelPermalink | absURL }}">
+		<meta name="twitter:image" content="{{ .RelPermalink | absURL }}" />
 		{{ else }}
-		  <meta property="og:image" content="{{ $default | absURL }}">
-		  <meta name="twitter:image" content="{{ $default | absURL }}" />
+		<meta property="og:image" content="{{ $img | absURL }}">
+		<meta name="twitter:image" content="{{ $img | absURL }}" />
 		{{ end }}
-	  {{ end }}
+	{{ else }}
+		{{ with .Resources.GetMatch "og_image.*" }}
+		<meta property="og:image" content="{{ .RelPermalink | absURL }}">
+		<meta name="twitter:image" content="{{ .RelPermalink | absURL }}" />
+		{{ else }}
+		<meta property="og:image" content="{{ $default | absURL }}">
+		<meta name="twitter:image" content="{{ $default | absURL }}" />
+		{{ end }}
+	{{ end }}
 	{{ else }}
 	  <meta property="og:image" content="{{ $default | absURL }}">
 	  <meta name="twitter:image" content="{{ $default | absURL }}">
